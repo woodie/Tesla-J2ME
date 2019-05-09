@@ -7,4 +7,4 @@ MIDlet-Icon: icon40x40.png
 MIDlet-Description: Tesla app for J2ME devices.
 MIDlet-Version: 0.1
 MIDlet-Jar-URL: TeslaJ2ME-0.1.jar
-MIDlet-Jar-Size: 132532
+MIDlet-Jar-Size: 132736

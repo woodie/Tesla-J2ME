@@ -15,26 +15,32 @@ public class TeslaJ2ME extends MIDlet {
   private String keyLabel;
   private SpecialFont specialFont = new SpecialFont();
   private Font largeFont = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_LARGE);
-  private boolean toggle;
+  private int displat_state;
   private final int LGRAY = 0x666666;
   private final int DGRAY = 0x2c2c2d;
   private final int BLACK = 0x000000;
   private final int WHITE = 0xFFFFFF;
   private final int GREEN = 0x008800;
+  private final int DRIVING = 0;
+  private final int CHARGING = 1;
+  private final int COMPLETE = 2;
+  private final int PARKED = 3;
 
   // vehicle_state
   private String vehicle_name = "Black Beauty";
   // charge_state
   private int battery_level;
-  private double battery_range;
+  //private double battery_range;
   // drive_state
   private int speed;
 
-  private String display_state;
-  private String battery_range_str;
-  private String speed_str;
+  private double battery_full = 239.0;
   private int battery_full_px = 50;
   private int battery_percent;
+  private int display_state = 0;
+  private String display_str;
+  private String battery_range_str;
+  private String speed_str;
 
   public TeslaJ2ME() {
     display = Display.getDisplay(this);
@@ -81,7 +87,7 @@ public class TeslaJ2ME extends MIDlet {
       int value = keyCode - 48;
       keyLabel = getKeyName(keyCode).toUpperCase();
       if (keyLabel.equals("SELECT")) {
-        toggle = toggle ? false : true;
+        displat_state = displat_state > 2 ? 0 : ++displat_state;
       } else if (keyLabel.equals("SOFT1")) {
         // nothing yet
       } else if (keyLabel.equals("SOFT2")) {
@@ -91,22 +97,29 @@ public class TeslaJ2ME extends MIDlet {
     }
 
     public void paint(Graphics g) {
-      if (toggle) {
-        display_state = "Driving";
+      speed_str = null;
+      if (displat_state == DRIVING) {
+        display_str = "Driving";
         backgroundImage = drivingImage;
-        battery_level = 65;
-        battery_range = 151.8;
+        battery_level = 60;
         speed = 65;
-      } else {
-        display_state = "Charging Complete";
+        speed_str = "" + speed + " mph";
+      } else if (displat_state == CHARGING) {
+        display_str = "Charging";
+        backgroundImage = chargingImage;
+        battery_level = 30;
+        speed_str = "4 hr 50 min remaining";
+      } else if (displat_state == COMPLETE) {
+        display_str = "Charging Complete";
         backgroundImage = chargingImage;
         battery_level = 90;
-        battery_range = 215.0;
-        speed = 0; // null
+      } else {
+        display_str = "Parked";
+        backgroundImage = drivingImage;
+        battery_level = 90;
       }
-      battery_range_str = String.valueOf((int) Math.floor(battery_range));
+      battery_range_str = String.valueOf((int) Math.floor(battery_full / 100 * battery_level));
       battery_percent = (int) Math.floor(((double) (battery_level) / 100) * battery_full_px);
-      speed_str = "" + speed + " mph";
 
       g.setColor(BLACK);
       g.fillRect(0, 0, width, height);
@@ -132,8 +145,8 @@ public class TeslaJ2ME extends MIDlet {
       g.setFont(largeFont);
       g.drawString("mi",  width / 2 + range_width + 9, 50, Graphics.LEFT | Graphics.TOP);
       // status
-      g.drawString(display_state, width / 2, 72, Graphics.HCENTER | Graphics.TOP);
-      if (toggle) {
+      g.drawString(display_str, width / 2, 72, Graphics.HCENTER | Graphics.TOP);
+      if (speed_str != null) {
         g.drawString(speed_str, width / 2, 92, Graphics.HCENTER | Graphics.TOP);
       }
 
