@@ -9,4 +9,5 @@ Here are the files:
 [JAD](https://raw.githubusercontent.com/woodie/Tesla-J2ME/master/dist/Tesla-J2ME.jad),
 [JAR](https://raw.githubusercontent.com/woodie/Tesla-J2ME/master/dist/Tesla-J2ME.jar)
 
-<img width="50%" src="https://raw.githubusercontent.com/woodie/Tesla-J2ME/master/docs/main.jpg" valign="top">
+<img width="50%" src="https://raw.githubusercontent.com/woodie/Tesla-J2ME/master/docs/parked.jpg" valign="top">
+<img width="50%" src="https://raw.githubusercontent.com/woodie/Tesla-J2ME/master/docs/charging.jpg" valign="top">
