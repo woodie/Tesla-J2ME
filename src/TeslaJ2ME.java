@@ -7,11 +7,16 @@ import javax.microedition.midlet.*;
 public class TeslaJ2ME extends MIDlet {
   private Display display = null;
   private MainCanvas mainCanvas = null;
+  private final int iconWidth = 40;
+  private final int iconMargin = (240 - (4 * iconWidth)) / 5;
+  private Image[] iconImage = new Image[4];
   private static Image backgroundImage = null;
   private static Image drivingImage = null;
   private static Image chargingImage = null;
   private int width;
   private int height;
+  private int menuSelection = 0;
+  private boolean menuShowing = false;
   private String keyLabel;
   private SpecialFont specialFont = new SpecialFont();
   private Font largeFont = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_LARGE);
@@ -68,6 +73,10 @@ public class TeslaJ2ME extends MIDlet {
       width = getWidth();
       height = getHeight();
       try {
+        iconImage[0] = Image.createImage ("/icon-fan.png");
+        iconImage[1] = Image.createImage ("/icon-frunk.png");
+        iconImage[2] = Image.createImage ("/icon-charge.png");
+        iconImage[3] = Image.createImage ("/icon-lock.png");
         drivingImage = Image.createImage ("/driving.png");
         chargingImage = Image.createImage ("/charging.png");
       } catch (Exception ex) {
@@ -86,12 +95,24 @@ public class TeslaJ2ME extends MIDlet {
     public void keyPressed(int keyCode){
       int value = keyCode - 48;
       keyLabel = getKeyName(keyCode).toUpperCase();
-      if (keyLabel.equals("SELECT")) {
-        displat_state = displat_state > 2 ? 0 : ++displat_state;
-      } else if (keyLabel.equals("SOFT1")) {
-        // nothing yet
-      } else if (keyLabel.equals("SOFT2")) {
-        bailout();
+      if (menuShowing) {
+        if (keyLabel.equals("SELECT")) {
+          menuShowing = false;
+        } else if (keyLabel.equals("SOFT2")) {
+          menuShowing = false;
+        } else if ((keyLabel.equals("UP")) || (keyLabel.equals("LEFT"))) {
+          menuSelection = (menuSelection <= 0) ? iconImage.length - 1 : --menuSelection;
+        } else if ((keyLabel.equals("DOWN")) || (keyLabel.equals("RIGHT"))) {
+          menuSelection = (menuSelection >= iconImage.length - 1) ? 0 : ++menuSelection;
+        }
+      } else {
+        if (keyLabel.equals("SELECT")) {
+          displat_state = displat_state > 2 ? 0 : ++displat_state;
+        } else if (keyLabel.equals("SOFT1")) {
+          menuShowing = menuShowing ? false : true;
+        } else if (keyLabel.equals("SOFT2")) {
+          bailout();
+        }
       }
       this.repaint();
     }
@@ -150,7 +171,16 @@ public class TeslaJ2ME extends MIDlet {
         g.drawString(speed_str, width / 2, 92, Graphics.HCENTER | Graphics.TOP);
       }
 
-      Toolbar.drawMenuIcon(g, 18, height - 20);
+      if (menuShowing) {
+        for (int i = 0; i < iconImage.length; i++) {
+          g.drawImage(iconImage[i], (iconWidth + iconMargin) * i + iconMargin, 250, Graphics.LEFT | Graphics.VCENTER);
+          g.setColor((menuSelection == i) ? WHITE : LGRAY);
+          g.drawArc((iconWidth + iconMargin) * i + iconMargin, 230, iconWidth, iconWidth, 0, 365);
+        }
+      }
+
+      g.setColor(WHITE);
+      if (!menuShowing) Toolbar.drawMenuIcon(g, 18, height - 20);
       Toolbar.drawBackIcon(g, width - 18, height - 22);
     }
 
