@@ -10,6 +10,7 @@ public class TeslaJ2ME extends MIDlet {
   private final int iconWidth = 40;
   private final int iconMargin = (240 - (4 * iconWidth)) / 5;
   private Image[] iconImage = new Image[4];
+  private static String[] iconString = {"Climate On", "Open Frunk", "Charging", "Unlock"};
   private static Image backgroundImage = null;
   private static Image drivingImage = null;
   private static Image chargingImage = null;
@@ -146,8 +147,8 @@ public class TeslaJ2ME extends MIDlet {
       g.setColor(BLACK);
       g.fillRect(0, 0, width, height);
       g.drawImage(backgroundImage, width / 2, height / 2, Graphics.HCENTER | Graphics.VCENTER);
-      g.setColor(WHITE);
 
+      g.setColor(WHITE);
       specialFont.letters(g, vehicle_name, (width - specialFont.lettersWidth(vehicle_name)) / 2, 15);
       // progress
       g.setColor(DGRAY);
@@ -181,7 +182,11 @@ public class TeslaJ2ME extends MIDlet {
       }
 
       g.setColor(WHITE);
-      if (!menuShowing) Toolbar.drawMenuIcon(g, 18, height - 20);
+      if (menuShowing) {
+        g.drawString(iconString[menuSelection], width / 2, height - 4, Graphics.HCENTER | Graphics.BOTTOM);
+      } else {
+        Toolbar.drawMenuIcon(g, 18, height - 20);
+      }
       Toolbar.drawBackIcon(g, width - 18, height - 22);
     }
 
