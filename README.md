@@ -1,6 +1,6 @@
 # Tesla J2ME 
 
-Display some data from (Tim Dorr's API)[https://tesla-api.timdorr.com] on J2ME.
+Display some data with [Tim Dorr's API](https://tesla-api.timdorr.com) on J2ME.
 
 We'll need implement OAuth 2.0 for this platform.
 
