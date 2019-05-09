@@ -109,7 +109,8 @@ public class TeslaJ2ME extends MIDlet {
         if (keyLabel.equals("SELECT")) {
           displat_state = displat_state > 2 ? 0 : ++displat_state;
         } else if (keyLabel.equals("SOFT1")) {
-          menuShowing = menuShowing ? false : true;
+          menuSelection = 0;
+          menuShowing = true;
         } else if (keyLabel.equals("SOFT2")) {
           bailout();
         }
