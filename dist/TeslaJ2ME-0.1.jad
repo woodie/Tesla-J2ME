@@ -1,0 +1,11 @@
+MIDlet-1: TeslaJ2ME, icon40x40.png, TeslaJ2ME
+MIDlet-Name: Tesla J2ME
+MIDlet-Vendor: John Woodell
+MicroEdition-Configuration: CLDC-1.1
+MicroEdition-Profile: MIDP-2.0
+MIDlet-Icon: icon40x40.png
+MIDlet-Description: Tesla app for J2ME devices.
+MIDlet-Info-URL: http://bit.ly/TeslaJ2ME
+MIDlet-Version: 0.1
+MIDlet-Jar-URL: TeslaJ2ME-0.1.jar
+MIDlet-Jar-Size: 84716
