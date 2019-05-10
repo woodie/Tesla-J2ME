@@ -2,7 +2,7 @@
 
 Display some data with [Tim Dorr's API](https://tesla-api.timdorr.com) on J2ME.
 
-We'll need implement OAuth 2.0 for this platform.
+We'll need implement OAuth 2.0 for this platform. This is currently just a Ui mock.
 
 Here are the files:
 [ZIP](https://raw.githubusercontent.com/woodie/Tesla-J2ME/master/dist/Tesla-J2ME.zip),
