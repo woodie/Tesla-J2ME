@@ -13,5 +13,5 @@ Here are the files:
 [JAD](https://raw.githubusercontent.com/woodie/Tesla-J2ME/master/dist/Tesla-J2ME.jad),
 [JAR](https://raw.githubusercontent.com/woodie/Tesla-J2ME/master/dist/Tesla-J2ME.jar)
 
-<img src="https://raw.githubusercontent.com/woodie/Tesla-J2ME/master/docs/parked.png" valign="top">
-<img src="https://raw.githubusercontent.com/woodie/Tesla-J2ME/master/docs/charging.png" valign="top">
+![](https://raw.githubusercontent.com/woodie/Tesla-J2ME/master/docs/parked.png)
+![](https://raw.githubusercontent.com/woodie/Tesla-J2ME/master/docs/charging.png)
